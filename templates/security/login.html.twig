@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+{{ form_start(form) }}
+{# debut de la balise form #}
+
+   {{ form_widget(form) }}
+{#ajout input#}
+
+   {{ form_end(form) }}
+{#vérifie que tout va biens#}
+
+{% endblock %}
