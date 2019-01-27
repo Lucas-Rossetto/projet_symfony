@@ -40,9 +40,9 @@ class UserController extends AbstractController
      */
     public function remove(User $user, EntityManagerInterface $entityManager)
     {
-        $articles = $user->getArticles();
-        foreach ($articles as $article){
-            $article->setUser(null);
+        $videos = $user->get();
+        foreach ($videos as $video){
+            $video->setUser(null);
         }
         $entityManager->remove($user);
         $entityManager ->flush();

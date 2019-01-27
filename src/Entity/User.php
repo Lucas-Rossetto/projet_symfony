@@ -19,7 +19,7 @@ class User implements UserInterface
      */
     private $roles;
     /**
-     * @ORM\Column()
+     * @ORM\Column(nullable=false)
      */
     private $password;
 
@@ -39,7 +39,7 @@ class User implements UserInterface
 
     /**
      * @Assert\Email()
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=false)
      */
 
     private $email;
@@ -58,13 +58,13 @@ class User implements UserInterface
     private $birthday;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="user")
      */
-    private $articles;
+    private $videos;
 
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
+        $this->videos = new ArrayCollection();
         $this->roles = array('ROLE_USER');
     }
 
@@ -174,30 +174,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Article[]
+     * @return Collection|video[]
      */
-    public function getArticles(): Collection
+    public function getVideos(): Collection
     {
-        return $this->articles;
+        return $this->videos;
     }
 
-    public function addArticle(Article $article): self
+    public function addVideo(video $video): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->setUser($this);
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Article $article): self
+    public function removeVideo(video $video): self
     {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
             // set the owning side to null (unless already changed)
-            if ($article->getUser() === $this) {
-                $article->setUser(null);
+            if ($video->getUser() === $this) {
+                $video->setUser(null);
             }
         }
 
